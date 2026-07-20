@@ -352,3 +352,7 @@ height:240px;
 }
 
 }
+/* Sticky header section clearance fix */
+section {
+  scroll-margin-top: 140px;
+}
