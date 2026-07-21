@@ -1,17 +1,10 @@
-const cards=document.querySelectorAll(".card,.feature-box,.review-card");
-
-const observer=new IntersectionObserver(entries=>{
-entries.forEach(entry=>{
-if(entry.isIntersecting){
-entry.target.style.opacity="1";
-entry.target.style.transform="translateY(0)";
-}
-});
-});
-
-cards.forEach(card=>{
-card.style.opacity="0";
-card.style.transform="translateY(40px)";
-card.style.transition=".6s";
-observer.observe(card);
-});
+const menu=document.querySelector("#menu"),nav=document.querySelector("#nav");
+menu.addEventListener("click",()=>{nav.classList.toggle("open");menu.textContent=nav.classList.contains("open")?"✕":"☰"});
+document.querySelectorAll("nav a").forEach(a=>a.onclick=()=>{nav.classList.remove("open");menu.textContent="☰"});
+document.querySelectorAll(".faq-item button").forEach(b=>b.onclick=()=>{const x=b.parentElement;document.querySelectorAll(".faq-item").forEach(i=>i!==x&&i.classList.remove("open"));x.classList.toggle("open")});
+const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add("visible");io.unobserve(e.target)}}),{threshold:.1});
+document.querySelectorAll(".reveal").forEach(x=>io.observe(x));
+const topBtn=document.querySelector(".top");
+window.addEventListener("scroll",()=>{if(window.innerWidth>620) topBtn.classList.toggle("show",scrollY>450); else topBtn.classList.remove("show")});
+topBtn.onclick=()=>scrollTo({top:0,behavior:"smooth"});
+document.querySelector(".hero-image img").addEventListener("error",function(){this.style.display="none";document.querySelector(".fallback").style.display="flex"});
